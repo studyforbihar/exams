@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SSC Lucent GK Quiz (60 Questions)</title>
+
+<style>
+:root{
+--bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;
+--accent:#22c55e;--accent2:#3b82f6;--danger:#ef4444;
+--card:#1f2937;--border:#374151;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:system-ui;
+background:radial-gradient(1200px 600px at 20% 0%,#0b1220,var(--bg));
+color:var(--text);
+min-height:100vh;
+}
+
+.app{
+width:100%;
+max-width:760px;
+margin: 0 auto;
+padding:20px;
+}
+
+.header{
+font-size:28px;font-weight:800;text-align:center;
+background:linear-gradient(135deg,#0ea5e9,#22c55e,#f59e0b);
+-webkit-background-clip:text;color:transparent
+}
+.subheader{text-align:center;color:var(--muted);margin:10px 0 20px}
+.panel{background:rgba(17,24,39,.6);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.statusbar{display:flex;gap:10px;align-items:center;padding:12px;border-bottom:1px solid var(--border)}
+.pill{padding:6px 10px;border-radius:999px;border:1px solid var(--border);font-size:12px}
+.progress{flex:1;height:8px;border-radius:999px;overflow:hidden;border:1px solid var(--border)}
+.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.card{padding:18px}
+.question{font-size:20px;font-weight:700;margin:10px 0}
+.options{display:grid;gap:12px}
+.option{
+background:var(--card);border:1px solid var(--border);border-radius:12px;
+padding:12px;display:flex;gap:10px;cursor:pointer
+}
+.option:hover{border-color:#4b5563}
+.optIndex{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#334155;font-weight:700}
+.meta{margin-top:10px;font-size:13px;color:var(--muted)}
+.hintBtn{margin-top:10px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text);cursor:pointer}
+.hintText{display:none;font-size:13px;color:#cbd5e1;margin-top:6px}
+.footer{display:flex;justify-content:space-between;padding:12px;border-top:1px solid var(--border)}
+.btn{padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:none;color:var(--text);cursor:pointer}
+.btn.primary{background:var(--accent2);color:#fff}
+
+.edu-footer {
+  margin-top: 60px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.edu-footer-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background: rgba(17,24,39,0.85);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+.footer-left, .footer-right {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.footer-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 2px solid var(--accent2);
+  box-shadow: 0 6px 20px rgba(0,0,0,.5);
+}
+
+
+.footer-photo.owner {
+  border-radius: 50%;
+  border-color: var(--accent);
+}
+
+.footer-left h3,
+.footer-right h3 {
+  margin-bottom: 10px;
+}
+
+.footer-left p,
+.footer-right p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.highlight {
+  background: rgba(34,197,94,0.1);
+  padding: 10px;
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+}
+
+.footer-links a:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.footer-copy {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Mobile Responsive */
+@media(max-width: 700px){
+  .edu-footer-box {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+/* ===== Feedback Section ===== */
+.simple-feedback{
+  max-width:760px;
+  margin:20px auto;
+  padding:12px;
+  border-top:1px dashed var(--border);
+}
+
+.feedback-note{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.simple-feedback textarea{
+  width:100%;
+  min-height:60px;
+  resize:none;
+  padding:8px;
+  border-radius:8px;
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--text);
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.feedback-btn{
+  padding:6px 14px;
+  font-size:13px;
+  border-radius:999px;
+  border:none;
+  background:var(--accent2);
+  color:#fff;
+  cursor:pointer;
+}
+
+#feedbackMsg{
+  margin-top:6px;
+  font-size:13px;
+  font-weight:600;
+}
+
+#feedbackMsg.success{
+  color:#22c55e; /* green */
+}
+
+#feedbackMsg.error{
+  color:#ef4444; /* red */
+}
+
+
+</style>
+</head>
+
+<body>
+<div class="app">
+<div class="header">SSC CGL/CHSL – LUCENT GK दिल्ली सल्तनत OBJECTIVE QUIZ </div>
+<div class="subheader">60 Questions • +1 / −0.3 • Auto Next</div>
+
+<div class="panel" id="panel">
+<div class="statusbar">
+<div class="pill" id="pillIndex">Q 1 / 70</div>
+<div class="pill" id="pillScore">Score: 0</div>
+<div class="progress"><div id="progressFill"></div></div>
+</div>
+
+<div class="card" id="card"></div>
+
+<div class="footer">
+<button class="btn" id="prevBtn" disabled>◀ पिछला</button>
+<button class="btn primary" id="nextBtn">अगला ▶</button>
+</div>
+</div>
+</div>
+
+<script>
+const QUESTIONS = [
+/* ========= Q1–Q35 ========= */
+{q:"गुलाम वंश का संस्थापक कौन था?",options:["इल्तुतमिश","कुतुबुद्दीन ऐबक","बलबन","रज़िया"],answerIndex:1,hint:"1206 ई.",explanation:"कुतुबुद्दीन ऐबक ने 1206 ई. में गुलाम वंश की स्थापना की।"},
+{q:"कुतुबुद्दीन ऐबक किसका गुलाम था?",options:["महमूद गजनवी","मोहम्मद गौरी","बलबन","इल्तुतमिश"],answerIndex:1,hint:"गौरी",explanation:"वह मोहम्मद गौरी का गुलाम व सेनापति था।"},
+{q:"कुतुबुद्दीन ऐबक की मृत्यु कैसे हुई?",options:["बीमारी","हत्या","घोड़े से गिरकर","युद्ध"],answerIndex:2,hint:"चौगान",explanation:"चौगान खेलते समय घोड़े से गिरकर मृत्यु हुई।"},
+{q:"कुतुब मीनार का निर्माण किसने शुरू कराया?",options:["इल्तुतमिश","रज़िया","कुतुबुद्दीन ऐबक","बलबन"],answerIndex:2,hint:"संस्थापक",explanation:"कुतुबुद्दीन ऐबक ने प्रारंभ कराया।"},
+{q:"कुतुब मीनार को किसने पूरा कराया?",options:["कुतुबुद्दीन ऐबक","इल्तुतमिश","बलबन","फिरोज शाह"],answerIndex:1,hint:"उत्तराधिकारी",explanation:"इल्तुतमिश ने इसे पूरा कराया।"},
+
+{q:"इल्तुतमिश को गुलाम वंश का वास्तविक संस्थापक क्यों माना जाता है?",options:["लंबा शासन","मजबूत शासन","राजधानी बदली","न्याय व्यवस्था"],answerIndex:1,hint:"संगठन",explanation:"उसने सुदृढ़ प्रशासन स्थापित किया।"},
+{q:"इल्तुतमिश ने किसे उत्तराधिकारी घोषित किया?",options:["बलबन","रज़िया","नासिरुद्दीन","रुकनुद्दीन"],answerIndex:1,hint:"महिला शासक",explanation:"रज़िया सुल्तान को उत्तराधिकारी घोषित किया।"},
+{q:"भारत की पहली महिला शासक कौन थी?",options:["चांद बीबी","रज़िया सुल्तान","नूरजहाँ","लक्ष्मीबाई"],answerIndex:1,hint:"दिल्ली सल्तनत",explanation:"रज़िया सुल्तान भारत की पहली महिला शासक थीं।"},
+{q:"रज़िया सुल्तान का शासनकाल था?",options:["1236–1240","1206–1210","1266–1287","1246–1266"],answerIndex:0,hint:"4 वर्ष",explanation:"रज़िया ने 1236 से 1240 तक शासन किया।"},
+{q:"तुर्कान-ए-चहलगानी किसने बनाई?",options:["कुतुबुद्दीन","इल्तुतमिश","रज़िया","बलबन"],answerIndex:1,hint:"40 अमीर",explanation:"इल्तुतमिश ने चालीसों की स्थापना की।"},
+
+{q:"चहलगानी क्या थी?",options:["सेना","कर प्रणाली","40 तुर्क अमीर","धार्मिक दल"],answerIndex:2,hint:"तुर्क",explanation:"40 शक्तिशाली तुर्क अमीरों का समूह।"},
+{q:"नासिरुद्दीन महमूद के समय वास्तविक शक्ति किसके पास थी?",options:["सुल्तान","वज़ीर","बलबन","सेनापति"],answerIndex:2,hint:"उलुग खाँ",explanation:"बलबन के पास वास्तविक सत्ता थी।"},
+{q:"बलबन का वास्तविक नाम क्या था?",options:["निज़ामुद्दीन","उलुग खाँ","बहाउद्दीन","अलाउद्दीन"],answerIndex:1,hint:"खाँ",explanation:"बलबन का वास्तविक नाम उलुग खाँ था।"},
+{q:"बलबन किस सिद्धांत में विश्वास करता था?",options:["लोकतंत्र","ज़िल्ले-इलाही","सुलह-ए-कुल","समाजवाद"],answerIndex:1,hint:"ईश्वर",explanation:"राजा को ईश्वर का प्रतिनिधि मानता था।"},
+{q:"सिजदा और पायबोस किससे संबंधित है?",options:["कर","दरबारी प्रथा","सेना","धर्म"],answerIndex:1,hint:"सम्मान",explanation:"राजा के प्रति सम्मान की दरबारी प्रथा।"},
+
+/* Q16–Q35 (short but exam-oriented) */
+{q:"बलबन कब सुल्तान बना?",options:["1246","1250","1266","1280"],answerIndex:2,hint:"शासन",explanation:"1266 ई. में।"},
+{q:"खान-ए-शहीद कौन था?",options:["बलबन का पुत्र","भाई","गुरु","सेनापति"],answerIndex:0,hint:"युवराज",explanation:"बलबन का पुत्र।"},
+{q:"गुलाम वंश का अंतिम शासक?",options:["बलबन","कायकुबाद","रज़िया","इल्तुतमिश"],answerIndex:1,hint:"अंत",explanation:"कायकुबाद अंतिम शासक था।"},
+{q:"गुलाम वंश का अंत किसने किया?",options:["अलाउद्दीन","बलबन","जलालुद्दीन खिलजी","बाबर"],answerIndex:2,hint:"खिलजी",explanation:"जलालुद्दीन खिलजी ने।"},
+{q:"गुलाम वंश के बाद कौन सा वंश आया?",options:["तुगलक","खिलजी","लोदी","सैयद"],answerIndex:1,hint:"दिल्ली",explanation:"खिलजी वंश।"},
+
+{q:"इल्तुतमिश की राजधानी थी?",options:["लाहौर","दिल्ली","अजमेर","आगरा"],answerIndex:1,hint:"दिल्ली सल्तनत",explanation:"दिल्ली राजधानी थी।"},
+{q:"कुतुबुद्दीन ऐबक को किस उपनाम से जाना जाता था?",options:["ज़िल्ले इलाही","लाख बख्श","शाहंशाह","सुल्तान"],answerIndex:1,hint:"दानवीर",explanation:"लाख बख्श कहा जाता था।"},
+{q:"रज़िया की मृत्यु कहाँ हुई?",options:["दिल्ली","लाहौर","कैथल","अजमेर"],answerIndex:2,hint:"विद्रोह",explanation:"कैथल के पास।"},
+{q:"बलबन ने किस वर्ग को दबाया?",options:["उलेमा","तुर्क अमीर","हिंदू","मंगोल"],answerIndex:1,hint:"शक्ति",explanation:"तुर्क अमीरों को नियंत्रित किया।"},
+{q:"बलबन का मकबरा कहाँ है?",options:["आगरा","दिल्ली","लाहौर","अजमेर"],answerIndex:1,hint:"मेहरौली",explanation:"दिल्ली में स्थित है।"},
+
+{q:"इल्तुतमिश ने मुद्रा प्रणाली को?",options:["समाप्त","मजबूत","हटाया","बदला"],answerIndex:1,hint:"टंका",explanation:"टंका-जितल को मजबूत किया।"},
+{q:"गुलाम वंश का शासन मुख्यतः किस पर आधारित था?",options:["सेना","अमीर","राजा","कानून"],answerIndex:0,hint:"सुरक्षा",explanation:"सेना पर आधारित।"},
+{q:"कुतुबुद्दीन ऐबक की कब्र कहाँ है?",options:["दिल्ली","लाहौर","गजनी","अजमेर"],answerIndex:1,hint:"पाकिस्तान",explanation:"लाहौर में।"},
+{q:"इल्तुतमिश का मकबरा कहाँ है?",options:["दिल्ली","अजमेर","लाहौर","आगरा"],answerIndex:0,hint:"कुतुब परिसर",explanation:"दिल्ली में।"},
+{q:"गुलाम वंश का काल?",options:["1206–1290","1192–1206","1290–1320","1320–1414"],answerIndex:0,hint:"स्थापना",explanation:"1206 से 1290 ई."},
+
+/* ========= Q36–Q70 ========= */
+{q:"इल्तुतमिश ने मंगोल खतरे से निपटने के लिए क्या नीति अपनाई?",options:["युद्ध","संधि","उपेक्षा","कर"],answerIndex:1,hint:"चंगेज़ ख़ान",explanation:"इल्तुतमिश ने मंगोलों से संधि नीति अपनाई।"},
+{q:"चंगेज़ ख़ान भारत किसके समय पहुँचा?",options:["ऐबक","इल्तुतमिश","बलबन","रज़िया"],answerIndex:1,hint:"1219 ई.",explanation:"इल्तुतमिश के समय।"},
+{q:"इल्तुतमिश ने किस उपाधि को त्याग दिया?",options:["सुल्तान","खलीफा की उपाधि","शाह","अमीर"],answerIndex:1,hint:"स्वतंत्रता",explanation:"खलीफा की अधीनता समाप्त की।"},
+{q:"रज़िया सुल्तान ने किसे अमीर बनाया?",options:["जमालुद्दीन याकूत","बलबन","इल्तुतमिश","नासिरुद्दीन"],answerIndex:0,hint:"हब्शी",explanation:"याकूत को ऊँचा पद दिया।"},
+{q:"रज़िया के विरुद्ध विद्रोह का मुख्य कारण?",options:["कर","महिला शासक","धर्म","सेना"],answerIndex:1,hint:"रूढ़िवाद",explanation:"महिला शासक होना।"},
+
+{q:"नासिरुद्दीन महमूद किसका दामाद था?",options:["इल्तुतमिश","बलबन","ऐबक","रज़िया"],answerIndex:1,hint:"विवाह",explanation:"बलबन का।"},
+{q:"बलबन ने गुप्तचर व्यवस्था को?",options:["समाप्त","मजबूत","कमजोर","बदला"],answerIndex:1,hint:"जासूस",explanation:"गुप्तचर व्यवस्था मजबूत की।"},
+{q:"बलबन की न्याय नीति कैसी थी?",options:["उदार","कठोर","लचीली","ढीली"],answerIndex:1,hint:"अनुशासन",explanation:"कठोर न्याय नीति।"},
+{q:"बलबन के समय मंगोल आक्रमण?",options:["नहीं","कम","अधिक","नियंत्रित"],answerIndex:3,hint:"सीमा",explanation:"मंगोलों को रोका गया।"},
+{q:"बलबन ने दीवान-ए-अर्ज को?",options:["समाप्त","मजबूत","बदला","हटाया"],answerIndex:1,hint:"सेना",explanation:"सैन्य विभाग मजबूत किया।"},
+
+{q:"कायकुबाद किसका पोता था?",options:["ऐबक","इल्तुतमिश","बलबन","रज़िया"],answerIndex:2,hint:"उत्तराधिकारी",explanation:"बलबन का पोता।"},
+{q:"कायकुबाद का शासन कैसा था?",options:["मजबूत","कमजोर","कठोर","लोकप्रिय"],answerIndex:1,hint:"विलास",explanation:"वह कमजोर शासक था।"},
+{q:"जलालुद्दीन खिलजी ने सत्ता कब संभाली?",options:["1287","1290","1296","1300"],answerIndex:1,hint:"वंश परिवर्तन",explanation:"1290 ई."},
+{q:"गुलाम वंश का कुल काल?",options:["80 वर्ष","84 वर्ष","90 वर्ष","100 वर्ष"],answerIndex:1,hint:"1206–1290",explanation:"84 वर्ष।"},
+{q:"इल्तुतमिश ने किस सिक्के को चलन में लाया?",options:["रुपया","टंका","मोहर","दिनार"],answerIndex:1,hint:"चाँदी",explanation:"टंका।"},
+
+{q:"बलबन का दरबार किस लिए प्रसिद्ध था?",options:["भव्यता","कठोर अनुशासन","संगीत","कविता"],answerIndex:1,hint:"अनुशासन",explanation:"कठोर अनुशासन।"},
+{q:"बलबन ने कौन सी उपाधि धारण की?",options:["ज़िल्ले-इलाही","सुल्तान-ए-आज़म","खलीफा","अमीर"],answerIndex:0,hint:"ईश्वर",explanation:"ज़िल्ले-इलाही।"},
+{q:"गुलाम वंश की प्रशासनिक भाषा?",options:["हिंदी","संस्कृत","फारसी","अरबी"],answerIndex:2,hint:"दरबारी",explanation:"फारसी।"},
+{q:"कुतुब मीनार किस शैली में बनी?",options:["नागर","द्रविड़","इंडो-इस्लामिक","गोथिक"],answerIndex:2,hint:"वास्तुकला",explanation:"इंडो-इस्लामिक।"},
+{q:"इल्तुतमिश को किससे वैधता मिली?",options:["जनता","खलीफा","सेना","अमीर"],answerIndex:1,hint:"मान्यता",explanation:"खलीफा से।"},
+
+{q:"रज़िया किस वेश में दरबार जाती थी?",options:["नारी","पुरुष","राजकुमारी","सैनिक"],answerIndex:1,hint:"समानता",explanation:"पुरुष वेश में।"},
+{q:"बलबन का उत्तराधिकारी कौन बना?",options:["कायकुबाद","बुगरा खाँ","खान-ए-शहीद","नासिरुद्दीन"],answerIndex:0,hint:"अंतिम",explanation:"कायकुबाद।"},
+{q:"गुलाम वंश की सेना किस पर आधारित थी?",options:["घुड़सवार","पैदल","हाथी","नौसेना"],answerIndex:0,hint:"तुर्क",explanation:"घुड़सवार सेना।"},
+{q:"इल्तुतमिश का मकबरा किस परिसर में है?",options:["लाल किला","कुतुब","तुगलकाबाद","हुमायूँ"],answerIndex:1,hint:"दिल्ली",explanation:"कुतुब परिसर।"},
+{q:"गुलाम वंश का सबसे शक्तिशाली शासक?",options:["ऐबक","इल्तुतमिश","रज़िया","बलबन"],answerIndex:3,hint:"कठोर",explanation:"बलबन।"},
+
+{q:"बलबन ने किस वर्ग को समाप्त किया?",options:["चहलगानी","किसान","सेना","व्यापारी"],answerIndex:0,hint:"40 अमीर",explanation:"चहलगानी को कमजोर किया।"},
+{q:"इल्तुतमिश ने राजधानी दिल्ली क्यों बनाई?",options:["सुरक्षा","व्यापार","राजनीति","धर्म"],answerIndex:0,hint:"मंगोल",explanation:"सुरक्षा कारणों से।"},
+{q:"कुतुबुद्दीन ऐबक का शासनकाल?",options:["1192–1206","1206–1210","1211–1236","1236–1240"],answerIndex:1,hint:"स्थापना",explanation:"1206–1210 ई."},
+{q:"गुलाम वंश का सबसे कमजोर शासक?",options:["रज़िया","कायकुबाद","नासिरुद्दीन","ऐबक"],answerIndex:1,hint:"विलासी",explanation:"कायकुबाद।"},
+{q:"दिल्ली सल्तनत का प्रारंभ किससे माना जाता है?",options:["बलबन","इल्तुतमिश","कुतुबुद्दीन ऐबक","रज़िया"],answerIndex:2,hint:"1206",explanation:"कुतुबुद्दीन ऐबक से।"}
+];
+
+let current=0,score=0;
+const selections=new Array(QUESTIONS.length).fill(null);
+function showResultScreen() {
+  const correct = selections.filter(
+    (s, i) => s === QUESTIONS[i].answerIndex
+  ).length;
+  const wrong = QUESTIONS.length - correct;
+
+  card.innerHTML = `
+    <div style="text-align:center;padding:30px">
+      <h2 style="font-size:26px;margin-bottom:10px">
+        Quiz Finished ✅
+      </h2>
+
+      <p>✔ Correct: <b>${correct}</b></p>
+      <p style="color:#f87171">✖ Wrong: <b>${wrong}</b></p>
+      <p style="margin-top:10px;font-size:18px">
+        Score: <b>${score.toFixed(2)}</b>
+      </p>
+
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap">
+<button class="btn primary" onclick="downloadResultHTML()">⬇ Download Result</button>
+
+        <button class="btn" onclick="restartQuiz()">🔄 Restart</button>
+        <button class="btn" onclick="goHome()">🏠 Home</button>
+      </div>
+    </div>
+  `;
+
+  document.querySelector(".footer").style.display = "none";
+}
+
+
+function restartQuiz() {
+  current = 0;
+  score = 0;
+  selections.fill(null);
+  document.querySelector(".footer").style.display = "flex";
+  render();
+}
+
+function downloadResultHTML() {
+
+  let qaHTML = QUESTIONS.map((q, i) => `
+    <div class="qa">
+      <h4>Q${i + 1}. ${q.q}</h4>
+      <p><b>✔ Answer:</b> ${q.options[q.answerIndex]}</p>
+    </div>
+  `).join("");
+
+  const html = `
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>Quiz Result – Study For Bihar</title>
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f172a,#020617);
+  color:#fff;
+  padding:20px;
+}
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:25px;
+}
+.logo{
+  width:80px;
+  height:80px;
+  border-radius:14px;
+}
+.owner{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+}
+.title{
+  text-align:center;
+  flex:1;
+}
+.qa{
+  background:#111827;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:10px;
+}
+.footer{
+  text-align:center;
+  margin-top:30px;
+  font-size:13px;
+  color:#9ca3af;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <img src="images/channel-photo.png" class="logo">
+  <div class="title">
+    <h2>Study For Bihar – Quiz Result</h2>
+    <p>Objective Practice for Matric & SSC Students</p>
+    <h3>Score: ${score.toFixed(2)}</h3>
+  </div>
+  <img src="images/my-photo.jpg" class="owner">
+</div>
+
+${qaHTML}
+
+<div class="footer">
+  © 2026 | Made by Sartaz Alam  
+  <br>
+  Website: study-for-bihar
+</div>
+
+</body>
+</html>
+`;
+
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "StudyForBihar_Quiz_Result.html";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+
+function goHome() {
+  window.location.href = "https://pyarifatma123-commits.github.io/study-for-bihar/";
+}
+
+
+const pillIndex=document.getElementById("pillIndex");
+const pillScore=document.getElementById("pillScore");
+const progressFill=document.getElementById("progressFill");
+const card=document.getElementById("card");
+const prevBtn=document.getElementById("prevBtn");
+const nextBtn=document.getElementById("nextBtn");
+
+function render(){
+const q=QUESTIONS[current];
+pillIndex.textContent=`Q ${current+1} / 60`;
+pillScore.textContent=`Score: ${score.toFixed(2)}`;
+progressFill.style.width = `${(current / QUESTIONS.length) * 100}%`;
+
+card.innerHTML=`
+<div class="qhead"> गुलाम वंश • SSC CHSL/CGL पैटर्न</div>
+<div class="question">${q.q}</div>
+<div class="options">
+${q.options.map((o,i)=>`
+<div class="option" data-i="${i}">
+<div class="optIndex">${["A","B","C","D"][i]}</div>
+<div>${o}</div>
+</div>`).join("")}
+</div>
+<button class="hintBtn" id="hintBtn">💡 Hint</button>
+<div class="hintText" id="hintText">${q.hint}</div>
+`;
+
+document.querySelectorAll(".option").forEach(el=>{
+el.onclick=()=>choose(+el.dataset.i);
+});
+document.getElementById("hintBtn").onclick=()=>{
+const h=document.getElementById("hintText");
+h.style.display=h.style.display==="block"?"none":"block";
+};
+
+prevBtn.disabled=current===0;
+nextBtn.textContent=current===QUESTIONS.length-1?"Finish ▶":"अगला ▶";
+}
+
+function choose(i){
+if(selections[current]!=null)return;
+selections[current]=i;
+const correct=QUESTIONS[current].answerIndex;
+if(i===correct)score+=1;else score-=0.3;
+
+document.querySelectorAll(".option").forEach((el,idx)=>{
+if(idx===i){
+el.style.borderColor=idx===correct?"var(--accent)":"var(--danger)";
+el.style.background=idx===correct?"rgba(34,197,94,.15)":"rgba(239,68,68,.15)";
+}
+});
+setTimeout(next,400);
+}
+
+function next() {
+  if (current < QUESTIONS.length - 1) {
+    current++;
+    render();
+  } else {
+    showResultScreen();
+  }
+}
+
+function prev(){ if(current>0){current--;render();} }
+
+prevBtn.onclick=prev;
+nextBtn.onclick=next;
+render();
+
+function submitFeedback(){
+  const txt = document.getElementById("feedbackText");
+  const msg = document.getElementById("feedbackMsg");
+
+  msg.className = ""; // reset
+  msg.innerText = "";
+
+  if(txt.value.trim()===""){
+    msg.innerText = "❌ कृपया पहले feedback लिखें";
+    msg.classList.add("error");
+    return;
+  }
+
+  msg.innerText = "✅ धन्यवाद 🙏 आपका Feedback सफलतापूर्वक दर्ज हो गया है।";
+  msg.classList.add("success");
+
+  txt.value = "";
+}
+
+</script>
+
+<!-- ================= DISCLAIMER + FEEDBACK SECTION ================= -->
+
+<div class="simple-feedback">
+  <p class="feedback-note">
+    ⚠️ यदि इस Quiz में किसी भी प्रकार की त्रुटि (प्रश्न, उत्तर या विकल्प) हो,
+    तो उसके लिए क्षमाप्रार्थी हूँ।
+  </p>
+
+  <textarea id="feedbackText"
+    placeholder="यहाँ प्रश्न,उत्तर या विकल्प में हूए गलती / सुझाव लिखें..."
+  ></textarea>
+
+  <button onclick="submitFeedback()" class="feedback-btn">
+    Feedback Submit करें
+  </button>
+  <div id="feedbackMsg"></div>
+</div>
+
+
+<!-- ================= END DISCLAIMER ================= -->
+
+
+<footer class="edu-footer">
+
+  <div class="edu-footer-box">
+
+    <!-- LEFT SIDE -->
+    <div class="footer-left">
+      <img src="images/channel-photo.png" class="footer-photo">
+
+      <h3>हमारे Educational Platforms क्यों Join करें?</h3>
+
+      <p>
+        📘 <b>YouTube Channel</b> के ज़रिये आप
+        आसान भाषा में Objective Quiz, GK और
+        SSC / Matric Level के Important Questions
+        देखकर अपनी पढ़ाई को बेहतर बना सकते हैं।
+      </p>
+
+      <p>
+        📢 <b>Telegram Channel</b> से जुड़कर
+        आपको Notes PDF, Objective & Subjective
+        Questions और Exam Updates मिलते रहेंगे।
+      </p>
+
+      <p>
+        💬 <b>WhatsApp Group</b> से जुड़कर
+        तुरंत New Quiz, VVI Questions और
+        Matric / SSC Students के लिए
+        Latest Updates पाएँ।
+      </p>
+
+      <p>
+        🌐 <b>Website</b> पर Class 6 से लेकर
+        Matric और SSC तक के Students
+        Practice Quiz के ज़रिये
+        अपनी तैयारी मज़बूत कर सकते हैं।
+      </p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="footer-right">
+      <img src="images/my-photo.jpg" class="footer-photo owner">
+
+
+      <h3>Sartaz Alam</h3>
+
+      <p>
+        मैं Competitive Exams और
+        Matric Students के लिए
+        Objective Quiz, GK और
+        Lucent आधारित कंटेंट तैयार करता हूँ।
+      </p>
+
+      <p class="highlight">
+        🎯 Matric & Entrance Students के लिए
+        VVI Questions पाने के लिए
+        हमारे Channel और Website से ज़रूर जुड़ें।
+      </p>
+
+      <div class="footer-links">
+        <a href="https://pyarifatma123-commits.github.io/study-for-bihar/" target="_blank">🌐 Website</a>
+        <a href="http://www.youtube.com/@srs__sartaz" target="_blank">▶ YouTube</a>
+        <a href="https://t.me/studyforbihar" target="_blank">📢 Telegram</a>
+        <a href="https://pyarifatma123-commits.github.io/study-for-bihar/" target="_blank">💬 WhatsApp</a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="footer-copy">
+    © 2026 | Made with ❤️ for Students by Sartaz Alam
+  </p>
+
+</footer>
+</body>
+</html>
+
