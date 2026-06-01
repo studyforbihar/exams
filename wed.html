@@ -130,9 +130,61 @@
 
         .school-greet { font-size: 1rem; letter-spacing: 2px; color: #aaa; margin-bottom: 20px; text-transform: uppercase; }
         
+/* --- DULHA DULHAN NAME ANIMATION --- */
         .couple-names { margin: 40px 0; position: relative; }
-        .name { font-family: 'Great Vibes', cursive; font-size: 4.5rem; line-height: 1; }
-        .weds { font-family: 'Cinzel Decorative', cursive; font-size: 1.5rem; margin: 15px 0; letter-spacing: 5px; color: #fff; }
+        
+        /* Shuru mein naam chhupe rahenge (opacity: 0) */
+        .name { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 4.5rem; 
+            line-height: 1; 
+            opacity: 0; 
+            transform: scale(0.8) translateY(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+        
+        .weds { 
+            font-family: 'Cinzel Decorative', cursive; 
+            font-size: 1.5rem; 
+            margin: 15px 0; 
+            letter-spacing: 5px; 
+            color: #fff; 
+            opacity: 0; 
+            transform: scale(0.8);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        /* Darwaza khulte hi ek-ek karke aayenge (Delay ke sath) */
+        .content-visible .name:first-child {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            transition-delay: 0.5s; /* Dulhe ka naam sabse pehle */
+        }
+
+        .content-visible .weds {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 1.5s; /* Weds thodi der baad */
+        }
+
+        .content-visible .name:last-child {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            transition-delay: 2.5s; /* Dulhan ka naam aakhir mein */
+        }
+
+        /* Sone (Gold) ki tarah chamakne wala effect (Glow) */
+        @keyframes goldGlow {
+            0% { text-shadow: 0px 2px 10px rgba(212,175,55,0.3); }
+            50% { text-shadow: 0px 2px 30px rgba(212,175,55,1); }
+            100% { text-shadow: 0px 2px 10px rgba(212,175,55,0.3); }
+        }
+
+        /* Ek baar naam aane ke baad glow shuru ho jayega */
+        .content-visible .name {
+            animation: goldGlow 3s infinite alternate;
+            animation-delay: 3.5s; 
+        }
 
         .shayari-box {
             background: rgba(212, 175, 55, 0.05);
